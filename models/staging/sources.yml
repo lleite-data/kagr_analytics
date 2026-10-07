@@ -1,0 +1,75 @@
+version: 2
+
+sources:
+  - name: merch
+    database: raw
+    schema: merch
+    
+    tables:
+      - name: sales
+        columns:
+          - name: sale_id
+            data_tests:
+              - not_null
+          - name: store_id
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments: 
+                    to: source('merch','store')
+                    field: store_id
+          - name: product_id
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: ref('merch','products')
+                    field: product_id
+          - name: sale_ts
+            data_tests:
+              - not_null
+          - name: qty
+          - name: unit_price
+          - name: discount_pct
+          - name: status
+            data_tests:
+              - not_null
+              - accepted_values:
+                  arguments: 
+                    values: ['COPMLETED','RETURNED','TEST']
+                  config:
+                    severity: warn
+          - name: _loaded_at
+
+      - name: stores
+        columns:
+          - name: store_id
+            data_tests:
+              - not_null
+              - unique
+          - name: store_name
+            data_tests:
+              - not_null
+              - unique
+          - name: venue_id
+            data_tests:
+              - not_null
+      
+      - name: products
+        columns:
+          - name: product_id
+            data_tests:
+              - not_null
+              - unique
+          - name: produt_name
+            data_tests:
+              - not_null
+          - name: category
+            data_tests:
+              - not_null
+              - accepted_values:
+                  arguments: 
+                    values: ['APPAREL','FOOD','DRINK']
+          - name: is_active
+            
+          
