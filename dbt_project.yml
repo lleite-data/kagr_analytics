@@ -23,10 +23,13 @@ models:
     staging:
       +materialized: view
       +tags: ['stg']
+      +schema: stg
     intermediate:
       +materialized: view
       +tags: ['int']
+      +schema: int
     marts:
       +materialized: table
       +tags: ['marts']
+      +schema: marts
 

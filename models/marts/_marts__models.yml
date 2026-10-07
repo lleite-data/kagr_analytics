@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: fct_daily_ticket_sales
+    description: daily ticket sales data grained
+    columns:
+      - name: sale_date
+        data_tests:
+          - not_null
+      - name: event_id
+        data_tests:
+          - not_null
+      - name: venue_id
+      - name: event_type
+        data_tests:
+          - not_null
+      - name: orders_count
+      - name: tickets_sold
+      - name: net_revenue
+      - name: updated_at
