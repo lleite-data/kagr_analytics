@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: archtics
+    description: >
+      Ticketmaster Archtics extracts landed in the stage schema..
+      Assumed types: ids and seat numbers are integers; section and row names are varchar. 
+    database: "{{ var('archtics_database', target.database) }}"
+    schema: stage
+    tables:
+      - name: archticsmanifest
+        description: One row per manifest seat block (section, row, first/last seat).
+        columns:
+          - name: manifestid
+            data_tests:
+              - not_null
+
+      - name: archticsseasons
+        description: Seasons, linked to a manifest and arena.
+        columns:
+          - name: seasonid
+            data_tests:
+              - not_null
+          - name: manifestid
+            data_tests:
+              - not_null
+
+      - name: archticsevents
+        description: Events per season. Only seasonid is used.
+        columns:
+          - name: seasonid
+            data_tests:
+              - not_null

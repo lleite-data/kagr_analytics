@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: dim_seat_blocks
+    description: >
+      One row per season, manifest, section, row and contiguous seat block
+      (seat increment 1 only). Migrated from the legacy Archtics manifest query.
+    columns:
+      - name: skhash
+        description: SHA2-512 surrogate key (team, season year, manifest, season, section, row, seat list).
+        data_tests:
+          - unique
+          - not_null
+      - name: seasonyear
+        data_tests:
+          - not_null
+      - name: manifestid
+        data_tests:
+          - not_null
+      - name: seasonid
+        data_tests:
+          - not_null
+      - name: capacity
+        data_tests:
+          - not_null
+      - name: classification
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['SRO', 'ADA', 'Manifest']
+      - name: rowlevel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['', 'First row', 'Last row', 'Front 25%', 'Middle', 'Last 25%']
