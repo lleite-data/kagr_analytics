@@ -28,9 +28,11 @@ models:
     staging:
       +materialized: view
       +tags: ['staging', 'archtics']
+      +schema: stg
     intermediate:
       +materialized: view
       +tags: ['intermediate', 'archtics']
+      +schema: int
     marts:
       +materialized: table
       +tags: ['marts', 'archtics']
